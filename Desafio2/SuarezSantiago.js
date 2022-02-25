@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { arch } = require('os')
 
 class Contenedor {
     constructor(archivo){
@@ -20,8 +21,9 @@ class Contenedor {
 
     getById(id){
         try {
-            const productos = this.getAll()
-            return productos.find(producto => id === producto.id)
+            const contenido =  fs.readFileSync(this.archivo)
+            const archivoCompleto = JSON.parse(contenido)
+            return console.log(archivoCompleto.find(producto => id === producto.id))
         } catch (error) {
             console.log(error)
         }
@@ -38,6 +40,15 @@ class Contenedor {
     }
 
     deleteById(id){
+        try{
+            const contenido =  fs.readFileSync(this.archivo)
+            const archivoCompleto = JSON.parse(contenido)
+            const indice = archivoCompleto.indexOf(id)
+            archivoCompleto.splice(indice,indice)
+            return console.log(archivoCompleto)
+        } catch(error) {
+            console.log("No se encuentra")
+        }
     }
 
     deleteAll(){
@@ -79,3 +90,8 @@ const cont2 = new Contenedor("./productos.txt")
 
 cont.getAll()
 // cont.deleteAll()
+// cont.deleteById(1)
+
+// cont.getById(1) 
+
+// cont.deleteById(1)
