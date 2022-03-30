@@ -31,7 +31,7 @@ let productos = [
 const mensaje = [];
 
 io.on("connection", (socket) => {
-  console.log("Conectadoasdasdasd");
+  console.log("Conectado correctamente al socket io");
 
   axios.get("http://localhost:8080/tabla.hbs").then((response) => {
     const template = response.data;
