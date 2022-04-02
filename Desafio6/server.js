@@ -11,6 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
+const PORT = 8080;
+const server = httpServer.listen(PORT, () => {
+  console.log("Servidor escuchando en el puerto " + server.address().port);
+});
+
+server.on("error", (error) => console.log("buno un error " + error));
+
 let productos = [
   {
     title: "Escuadra",
@@ -28,26 +35,34 @@ let productos = [
   },
 ];
 
-const mensaje = [];
+const mensajes = [
+  { author: "pedro@gmail.com", message: "!Hola¡" },
+  { author: "lucia@gmail.com", message: "Que tal" },
+];
 
+// IO Connection
 io.on("connection", (socket) => {
-  console.log("Conectadoasdasdasd");
+  console.log("Conectado al servidor");
 
+  // socket.emit("Datosiniciales", { productos, template });
   axios.get("http://localhost:8080/tabla.hbs").then((response) => {
     const template = response.data;
-    socket.emit("Datosiniciales", { productos, mensaje, template });
+    socket.emit("Datosiniciales", { productos, template });
   });
 
   socket.on("AgregarProducto", (producto) => {
     productos.push(producto);
-    console.log(productos);
     io.sockets.emit("NuevoProducto", productos);
   });
-});
 
-const PORT = 8080;
-const server = httpServer.listen(PORT, () => {
-  console.log("Servidor escuchando en el puerto " + server.address().port);
-});
+  // socket.emit("DatosinicialesMensajes", { mensaje, template });
+  axios.get("http://localhost:8080/messages.hbs").then((response) => {
+    const template = response.data;
+    socket.emit("DatosinicialesMensajes", { mensajes, template });
+  });
 
-server.on("error", (error) => console.log("buno un error " + error));
+  socket.on("AgregarMensaje", (mensaje) => {
+    mensajes.push(mensaje);
+    io.sockets.emit("NuevoMensaje", mensajes);
+  });
+});
