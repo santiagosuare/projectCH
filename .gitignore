@@ -11,15 +11,6 @@ Desafio5/node_modules
 Desafio6/node_modules
 chatWebSocket/node_modules
 chatMessageSocket/node_modules
-
-
-# Archivos
-Desafio2/info.txt
-Desafio2/miArchivo.txt
-Desafio2/package.json
-Desafio2/package.json.coder
-Desafio2/producto.txt
-Desafio2/test.js
 Desafio3.test/
 Desafio3/node_modules
 Desafio4.test/
@@ -30,3 +21,12 @@ Desafio5/node_modules
 Desafio6/node_modules
 chatWebSocket/node_modules
 chatMessageSocket/node_modules
+
+
+# Archivos
+Desafio2/info.txt
+Desafio2/miArchivo.txt
+Desafio2/package.json
+Desafio2/package.json.coder
+Desafio2/producto.txt
+Desafio2/test.js
