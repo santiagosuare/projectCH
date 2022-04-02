@@ -1,7 +1,9 @@
 const socket = io();
 let tabla;
+let messages;
 
-socket.on("Datosiniciales", ({ productos, mensaje, template }) => {
+//Escucho DatosIniciales
+socket.on("Datosiniciales", ({ productos, template }) => {
   tabla = Handlebars.compile(template);
 
   const html = tabla({ productos });
@@ -12,7 +14,6 @@ socket.on("Datosiniciales", ({ productos, mensaje, template }) => {
 // AGREGO NUEVO PRODUCTO
 socket.on("NuevoProducto", (productos) => {
   const html = tabla({ productos });
-  console.log(productos);
 
   document.getElementById("tabla").innerHTML = html;
 });
@@ -29,4 +30,32 @@ document.getElementById("productoNew").onsubmit = (e) => {
   e.target[2].value = "";
 
   socket.emit("AgregarProducto", { title, price, thumbnail });
+};
+
+//Escucho DatosInicialesMensajes
+socket.on("DatosinicialesMensajes", ({ mensajes, template }) => {
+  messages = Handlebars.compile(template);
+
+  const html = messages({ mensajes });
+
+  document.getElementById("mensajes").innerHTML = html;
+});
+
+// AGREGO NUEVO MENSAJE
+socket.on("NuevoMensaje", (mensajes) => {
+  const html = messages({ mensajes });
+
+  document.getElementById("mensajes").innerHTML = html;
+});
+
+document.getElementById("mensajeNew").onsubmit = (e) => {
+  e.preventDefault();
+
+  const author = e.target[0].value;
+  const message = e.target[1].value;
+
+  e.target[0].value = "";
+  e.target[1].value = "";
+
+  socket.emit("AgregarMensaje", { author, message });
 };
