@@ -1,3 +1,18 @@
+# Todas las Carpetas y Archivos Ignorados
+
+# Carpetas
+Desafio3.test/
+Desafio4.test/
+Desafio5.test/
+Desafio5.test2/
+Desafio3/node_modules
+Desafio4/node_modules
+Desafio5/node_modules
+Desafio6/node_modules
+chatWebSocket/node_modules
+
+
+# Archivos
 Desafio2/info.txt
 Desafio2/miArchivo.txt
 Desafio2/package.json
