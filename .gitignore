@@ -26,6 +26,8 @@ mocksTest/node_modules
 normalizrApps/node_modules
 normalizrAndMockTest/node_modules
 DesafioMockAndNormalizr/node_modules
+sessionLoginCookie/node_modules
+sessionStorage/node_modules
 
 
 # Archivos
