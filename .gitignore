@@ -28,7 +28,9 @@ normalizrAndMockTest/node_modules
 DesafioMockAndNormalizr/node_modules
 sessionLoginCookie/node_modules
 sessionStorage/node_modules
-
+webPagePractitioner/node_modules
+sessions/
+sessionStorage/sessions
 
 # Archivos
 Desafio2/info.txt
@@ -37,3 +39,4 @@ Desafio2/package.json
 Desafio2/package.json.coder
 Desafio2/producto.txt
 Desafio2/test.js
+.DS_Store

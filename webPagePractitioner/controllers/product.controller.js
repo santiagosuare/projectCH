@@ -1,5 +1,5 @@
-const ProductoModel = require("../models/product.model");
-const Producto = new ProductoModel();
+const ProductModel = require("../models/product.model");
+const Producto = new ProductModel();
 const faker = require("faker");
 faker.locale = "es";
 const { commerce, image } = faker;
@@ -53,10 +53,10 @@ module.exports = {
         products: data,
       });
       /* res.status(200).send({
-        status: 200,
-        data,
-        message: 'products was obtained successfully',
-      }); */
+          status: 200,
+          data,
+          message: 'products was obtained successfully',
+        }); */
     } catch (error) {
       res.status(500).send({
         status: 500,

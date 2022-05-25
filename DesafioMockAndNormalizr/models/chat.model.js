@@ -1,4 +1,4 @@
-const firestore = require("../database/firebase/config").firebaseDb;
+const firestore = require("../DB/firebase/config").firebaseDb;
 const normalizr = require("normalizr");
 const util = require("util");
 const normalize = normalizr.normalize;

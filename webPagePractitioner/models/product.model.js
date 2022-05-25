@@ -1,11 +1,13 @@
 const knex = require("knex");
 const uuidv4 = require("uuid").v4;
-const { config } = require("../DB/mysql/config");
+const { config } = require("../database/mysql/config");
+
 class Product {
   constructor() {
     this.nameTable = "PRODUCTS";
-    // this.database = knex(config);
+    this.database = knex(config);
   }
+
   async getAllProductsTest() {
     try {
       let data = await this.database.from(this.nameTable).select("*");
@@ -15,14 +17,16 @@ class Product {
       throw Error(error.message);
     }
   }
+
   async save(product) {
     try {
       if (!product || typeof product !== "object") {
-        throw Error("You should add an object");
+        throw Error("The product is required");
       }
       if (Object.keys(product).length === 0) {
-        throw Error("You can't add an empty object");
+        throw Error("The product is required in the object");
       }
+
       const newProduct = {
         id: uuidv4(),
         ...product,

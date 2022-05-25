@@ -4,21 +4,27 @@ const session = require("express-session");
 const fileStore = require("session-file-store")(session);
 const app = express();
 
+const connectMongo = require("connect-mongo");
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const server = app.listen(8080, () => {
-  console.log("Server is running on port 3000");
+  console.log("Server is running on port 8080");
 });
 
 server.on("error", (error) => {
   console.log(error);
 });
 
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
 app.use(
   session({
-    store: new fileStore({
-      path: { path: "../sessions", tll: 3600, retries: 0 },
+    store: connectMongo.create({
+      mongoUrl:
+        "mongodb+srv://ssuarez:Aa123456@cluster0.q9i2x.mongodb.net/sessiones?retryWrites=true&w=majority",
+      mongoOptions: advancedOptions,
     }),
     secret: "secreto",
     resave: true,
@@ -38,7 +44,7 @@ app.get("/login", (req, res) => {
   }
   req.session.user = username;
   req.session.admin = true;
-  res.send("login success");
+  res.send("login success!!!");
 });
 
 function auth(req, res, next) {
@@ -50,4 +56,9 @@ function auth(req, res, next) {
 
 app.get("/privado", auth, (req, res) => {
   res.send("Esta es una página privada");
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.send("logout success!!");
 });
