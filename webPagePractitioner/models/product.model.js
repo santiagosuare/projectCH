@@ -14,7 +14,7 @@ class Product {
       data = JSON.parse(JSON.stringify(data));
       return data;
     } catch (error) {
-      throw Error(error.message);
+      throw Error("Base de datos no conectada: " + error.message);
     }
   }
 
