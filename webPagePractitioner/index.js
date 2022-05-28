@@ -4,31 +4,14 @@ const cookieParser = require("cookie-parser");
 const hbs = require("express-handlebars");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-// const { Server } = require("socket.io");
-// const Sockets = require("./sockets");
-// const router = require("./routes");
+const { Server } = require("socket.io");
+const Sockets = require("./sockets");
+const router = require("./routes");
 
 const users = [
   { nombre: "admin", password: "admin" },
   { nombre: "user", password: "user" },
 ];
-
-passport.use(
-  "login",
-  new LocalStrategy((username, password, done) => {
-    console.log("entre a login");
-    const existe = users.find((user) => {
-      return user.nombre === username && user.password === password;
-    });
-    console.log(existe);
-    if (!existe) {
-      return done(null, false);
-    } else {
-      console.log("error");
-      return done(null, existe);
-    }
-  })
-);
 
 const PORT = 8080;
 const app = express();
@@ -42,7 +25,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 20000, //20 segundos
+      maxAge: 600000, //10 minutos
     },
   })
 );
@@ -68,6 +51,23 @@ passport.use(
       }
     }
   )
+);
+
+passport.use(
+  "login",
+  new LocalStrategy((username, password, done) => {
+    console.log("entre a login");
+    const existe = users.find((user) => {
+      return user.nombre === username && user.password === password;
+    });
+    console.log(existe);
+    if (!existe) {
+      return done(null, false);
+    } else {
+      console.log("error");
+      return done(null, existe);
+    }
+  })
 );
 
 passport.serializeUser((users, done) => {
@@ -112,19 +112,23 @@ app.post(
 app.post(
   "/login",
   passport.authenticate("login", {
-    successRedirect: "/",
+    successRedirect: "/datos",
     failureRedirect: "/login-error",
   })
 );
 
 app.get("/datos", (req, res) => {
-  const { nombre, direccion } = req.user;
-  res.render({ nombre, direccion });
+  const { nombre } = req.user;
+  res.send({ nombre });
 });
 
 app.get("/logout", (req, res) => {
   // req.logOut();
   res.redirect("/login");
+});
+
+app.get("/register-error", (req, res) => {
+  res.render("register-error");
 });
 
 app.get("/login-error", (req, res) => {
@@ -133,10 +137,10 @@ app.get("/login-error", (req, res) => {
 
 // const database = require("./database/mysql/seed");
 
-// app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public"));
 
-// app.set("port", process.env.PORT || PORT);
-// app.use("/api", router);
+app.set("port", process.env.PORT || PORT);
+app.use("/api", router);
 
 const server = app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
@@ -146,7 +150,7 @@ server.on("error", (err) => {
   console.log(`Error: ${err}`);
 });
 
-// const io = new Server(server);
-// Sockets(io);
+const io = new Server(server);
+Sockets(io);
 
 // database.seedDatabaseProductsMySQL();
