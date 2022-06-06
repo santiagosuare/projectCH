@@ -32,6 +32,9 @@ webPagePractitioner/node_modules
 sessions/
 sessionStorage/sessions
 webPagePractitioner/.vscode
+processArgv/node_modules
+newProcessArgv/node_modules
+clusterWorks/node_modules
 
 # Archivos
 Desafio2/info.txt
@@ -41,3 +44,4 @@ Desafio2/package.json.coder
 Desafio2/producto.txt
 Desafio2/test.js
 .DS_Store
+webPagePractitioner/.env

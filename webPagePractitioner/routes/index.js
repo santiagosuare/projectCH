@@ -25,4 +25,23 @@ router.put("/productos/:id", updateProductById);
 
 router.delete("/productos/:id", deleteProductById);
 
+router.get("/randoms/", (req, res) => {
+  let num = req.query.cant;
+
+  if (Object.keys(req.query).length === 0) {
+    return res.send({
+      port: process.port,
+      pid: process.pid,
+      num: req.query.cant,
+      numDefault: "100.000.000",
+      random: Math.floor(Math.random() * 100000000),
+    });
+  } else {
+    return res.send({
+      num: req.query.cant,
+      random: Math.floor(Math.random() * num),
+    });
+  }
+});
+
 module.exports = router;
