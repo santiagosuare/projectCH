@@ -35,6 +35,7 @@ webPagePractitioner/.vscode
 processArgv/node_modules
 newProcessArgv/node_modules
 clusterWorks/node_modules
+LogsDebugGzip/node_modules
 
 # Archivos
 Desafio2/info.txt

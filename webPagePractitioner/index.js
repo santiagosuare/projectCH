@@ -1,15 +1,10 @@
 const express = require("express");
-const hbs = require("express-handlebars");
-const { Server } = require("socket.io");
-const Sockets = require("./sockets");
-const router = require("./routes/index.js");
-const routerPlus = require("./routes/indexPlus.js");
-const routerLogin = require("./routes/indexLogin.js");
-const passport = require("passport");
-const session = require("express-session");
-
-const PORT = 8081;
 const app = express();
+const router = require("./routes/main.js");
+const hbs = require("express-handlebars");
+const LOG = require("./logs/logs.js");
+require("dotenv").config();
+const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,24 +21,14 @@ app.engine(
 
 app.set("view engine", ".hbs");
 
-// const database = require("./database/mysql/seed");
-
 app.use(express.static(__dirname + "/public"));
 
-app.set("port", process.env.PORT || PORT);
-app.use("/api", router);
-app.use("/info", routerPlus);
-// app.use("/", routerLogin);
-
 const server = app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+  LOG.info(`Servidor corriendo en el puerto ${PORT}`);
 });
 
 server.on("error", (err) => {
-  console.log(`Error: ${err}`);
+  LOG.error(`Error: ${err}`);
 });
 
-const io = new Server(server);
-Sockets(io);
-
-// database.seedDatabaseProductsMySQL();
+app.use("/", router);

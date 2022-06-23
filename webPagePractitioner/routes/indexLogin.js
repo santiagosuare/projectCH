@@ -5,6 +5,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const router = express.Router();
 const session = require("express-session");
 const hbs = require("express-handlebars");
+const LOG = require("../logs/logs");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -30,15 +31,13 @@ passport.use(
   new LocalStrategy(
     { passReqToCallback: true },
     (req, username, password, done) => {
-      console.log(username, password);
-      console.log("aca");
       const exist = users.find((user) => user.nombre === username);
       if (exist) {
-        console.log("El usuario ya existe");
+        LOG.warn("Usuario ya existe");
         return done(null, false, { message: "El usuario ya existe" });
       } else {
+        LOG.info("Usuario no existe");
         users.push({ nombre: username, password: password });
-        console.log(users);
         return done(null, { nombre: username });
       }
     }
@@ -48,22 +47,19 @@ passport.use(
 passport.use(
   "login",
   new LocalStrategy((username, password, done) => {
-    console.log("entre a login");
     const existe = users.find((user) => {
       return user.nombre === username && user.password === password;
     });
-    console.log(existe);
     if (!existe) {
       return done(null, false);
     } else {
-      console.log("error");
       return done(null, existe);
     }
   })
 );
 
 passport.serializeUser((users, done) => {
-  console.log(users.nombre + "serializeUser");
+  LOG.info("Serializando usuario");
   done(null, users.nombre);
 });
 
@@ -94,8 +90,12 @@ app.get("/registrar", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  // req.logOut();
-  res.render("login");
+  try {
+    LOG.info("LoginRouter : Enviada respuesta a la petición");
+    res.render("login");
+  } catch (error) {
+    LOG.error(`Error: ${error}`);
+  }
 });
 
 app.post(
@@ -120,7 +120,6 @@ app.get("/datos", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  // req.logOut();
   res.redirect("/login");
 });
 

@@ -1,10 +1,13 @@
 const { config } = require("./config");
 const knex = require("knex")(config);
 const { products } = require("./products");
+const LOG = require("../../logs/logs");
 
 const seedDatabaseProductsMySQL = async () => {
   try {
-    console.log("Iniciando la carga de datos en la base de datos MySQL");
+    LOG.info(
+      "SeedDatabaseProductsMySQL : Iniciando la creación de la base de datos"
+    );
     const existTableProducts = await knex.schema.hasTable("PRODUCTS");
     if (existTableProducts) {
       await knex.schema.dropTable("PRODUCTS");
@@ -17,9 +20,9 @@ const seedDatabaseProductsMySQL = async () => {
     });
     await knex("PRODUCTS").insert(products);
     await knex.destroy();
-    console.log("Carga de datos en la base de datos MySQL finalizada");
+    LOG.info("SeedDatabaseProductsMySQL : Base de datos creada con éxito");
   } catch (error) {
-    console.log(error.message);
+    LOG.error(`Error: ${error}`);
   }
 };
 

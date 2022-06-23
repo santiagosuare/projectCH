@@ -1,6 +1,7 @@
 const knex = require("knex");
 const uuidv4 = require("uuid").v4;
 const { config } = require("../database/mysql/config");
+const LOG = require("../logs/logs");
 
 class Product {
   constructor() {
@@ -14,6 +15,7 @@ class Product {
       data = JSON.parse(JSON.stringify(data));
       return data;
     } catch (error) {
+      LOG.error(`Error: ${error}`);
       throw Error("Base de datos no conectada: " + error.message);
     }
   }
