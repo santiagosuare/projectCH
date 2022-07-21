@@ -10,4 +10,4 @@
 * [Desafio 11](https://github.com/santiagosuare/projectCH/tree/master/DesafioMockAndNormalizr) - Mocks y normalización
 * [Desafio 12](https://github.com/santiagosuare/projectCH/tree/master/webPagePractitioner) - LOG-IN POR FORMULARIO
 * [Desafio 13](https://github.com/santiagosuare/projectCH/tree/master/webPagePractitioner) - Inicio de Session
-
+* [Desafio 19](https://github.com/santiagosuare/projectCH/tree/master/webPagePractitioner) - Dividir en capas nuestro proyecto
