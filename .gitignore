@@ -36,6 +36,7 @@ processArgv/node_modules
 newProcessArgv/node_modules
 clusterWorks/node_modules
 LogsDebugGzip/node_modules
+webTest/node_modules
 
 # Archivos
 Desafio2/info.txt
@@ -46,3 +47,4 @@ Desafio2/producto.txt
 Desafio2/test.js
 .DS_Store
 webPagePractitioner/.env
+webTest/.env
