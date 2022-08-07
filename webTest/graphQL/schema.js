@@ -1,6 +1,6 @@
 const buildSchema = require("graphql").buildSchema;
 
-export const schema = buildSchema(`
+const schema = buildSchema(`
     type Product {
         _id: String,
         name: String,
@@ -27,3 +27,5 @@ export const schema = buildSchema(`
         deleteProduct(id: String): Product,
     }
 `);
+
+module.exports = schema;

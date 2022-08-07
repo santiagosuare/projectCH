@@ -1,6 +1,4 @@
 const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const { buildSchema } = require("graphql");
 const router = require("./routes/indexRouter.js");
 const logger = require("./logs/logs.js");
 const app = express();
@@ -25,7 +23,7 @@ connectedServer.on("error", (error) =>
 //GraphQL
 app.use(
   "/graphql",
-  graphqlHTTP({
+  graphqlHTTP.graphqlHTTP({
     schema: schema,
     rootValue: {
       getAll,
