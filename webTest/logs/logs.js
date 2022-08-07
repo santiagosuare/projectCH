@@ -4,7 +4,7 @@ log4js.configure({
   appenders: {
     miLoggerFile: {
       type: "file",
-      filename: "src/logs/logs.log",
+      filename: "logs/logs.log",
       maxLogSize: 10485760,
       backups: 3,
       compress: true,
