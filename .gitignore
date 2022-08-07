@@ -38,6 +38,7 @@ clusterWorks/node_modules
 LogsDebugGzip/node_modules
 webTest/node_modules
 
+
 # Archivos
 Desafio2/info.txt
 Desafio2/miArchivo.txt
@@ -48,3 +49,4 @@ Desafio2/test.js
 .DS_Store
 webPagePractitioner/.env
 webTest/.env
+webTest/logs/logs.log
