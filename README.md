@@ -14,8 +14,4 @@
 * [Desafio 20](https://github.com/santiagosuare/e-commerce-project) - Mejorar la arquitectura de nuestra API
 * [Desafio 21](https://github.com/santiagosuare/projectCH/tree/master/webTest) - Test Unitarios
 * [Desafio 22](https://github.com/santiagosuare/projectCH/tree/master/webTest) - GraphQL
-<<<<<<< HEAD
 * [Desafio 23](https://github.com/santiagosuare/projectCH/tree/master/DesafioDeno) - Deno
-=======
-* [Desafio 23]() - Denon
->>>>>>> 4ca92d2dee439c722ea49928fb9d9f3a8907479e
